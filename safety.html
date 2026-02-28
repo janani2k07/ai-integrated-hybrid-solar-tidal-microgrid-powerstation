@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Nauvahini - Safety Check</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Boat Safety Check</h1>
+</header>
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="safety.html"><i class="fa-solid fa-shield-halved"></i> Safety Check</a>
+     <a href="news.html">News</a>
+    <a href="analytics.html"><i class="fa-solid fa-brain"></i> AI Analysis</a>
+     <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+</nav>
+
+<footer>
+    Ensuring Safe Journeys on Water
+</footer>
+
+<body>
+
+<div class="safety-box">
+
+    <h2>🛟 Smart Marine Safety System</h2>
+
+    <div class="input-group">
+        <label>Battery Level (%)</label>
+        <input type="number" id="batteryLevel" placeholder="Enter battery %">
+    </div>
+
+    <div class="input-group">
+        <label>Distance to Charging Station (km)</label>
+        <input type="number" id="distance" placeholder="Enter distance">
+    </div>
+
+    <div class="input-group">
+        <label>Environmental Condition</label>
+        <select id="environment">
+            <option value="low">Low (Calm Sea)</option>
+            <option value="medium">Medium (Windy)</option>
+            <option value="high">High (Stormy)</option>
+        </select>
+    </div>
+
+    <button class="check-btn" onclick="checkSafety()">Analyze Safety</button>
+
+    <!-- Animated Battery Bar -->
+    <div class="battery-bar">
+        <div id="batteryFill"></div>
+    </div>
+
+    <div id="safetyResult" class="result"></div>
+
+</div>
+<div class="map-box">
+    <h2>🗺 Charging Route Map</h2>
+    <div id="map"></div>
+    <div class="distance-box">
+    <p id="distanceResult"></p>
+
+    <div class="distance-progress">
+        <div id="distanceFill"></div>
+    </div>
+
+    <p id="timeResult"></p>
+    <div class="distance-box">
+    <h3 id="distanceResult">Distance: 2 km</h3>
+
+    <div class="distance-progress">
+        <div id="distanceFill"></div>
+    </div>
+
+    <h4 id="timeResult">Estimated Time: 12 mins</h4>
+</div>
+</div>
+</div>
+
+
+<script>
+/* Initialize Map */
+var map = L.map('map').setView([12.95, 80.40], 11);
+
+/* Sea Map Tiles */
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+/* 🌊 SEA LOCATIONS */
+var boatLat = 12.92;
+var boatLng = 80.38;
+
+var stationLat = 12.99;
+var stationLng = 80.45;
+
+/* 🚤 Custom Boat Icon */
+var boatIcon = L.icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854894.png",
+    iconSize: [40, 40]
+});
+
+/* ⚡ Custom Power Station Icon */
+var stationIcon = L.icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/1047/1047711.png",
+    iconSize: [45, 45]
+});
+
+/* Add Boat */
+var boatMarker = L.marker([boatLat, boatLng], {icon: boatIcon})
+    .addTo(map)
+    .bindPopup("🚤 Smart E-Boat Location");
+
+/* Add Power Station */
+var stationMarker = L.marker([stationLat, stationLng], {icon: stationIcon})
+    .addTo(map)
+    .bindPopup("⚡ Offshore Floating Charging Station");
+
+/* 🌊 Marine Route Line */
+var routeLine = L.polyline([
+    [boatLat, boatLng],
+    [stationLat, stationLng]
+], {
+    color: 'cyan',
+    weight: 4,
+    dashArray: "8,8"
+}).addTo(map);
+
+/* 🔵 Pulsing Circle Around Station */
+var pulse = L.circle([stationLat, stationLng], {
+    color: 'cyan',
+    fillColor: '#00ffff',
+    fillOpacity: 0.3,
+    radius: 2000
+}).addTo(map);
+
+/* Zoom to Route */
+map.fitBounds(routeLine.getBounds());
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* 🌊 SEA LOCATIONS */
+    var boatLat = 12.92;
+    var boatLng = 80.38;
+
+    var stationLat = 12.99;
+    var stationLng = 80.45;
+
+    /* Initialize Map */
+    var map = L.map('map').setView([boatLat, boatLng], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    /* 🚤 Boat Icon */
+    var boatIcon = L.icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854894.png",
+        iconSize: [40, 40]
+    });
+
+    /* ⚡ Station Icon */
+    var stationIcon = L.icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/1047/1047711.png",
+        iconSize: [45, 45]
+    });
+
+    /* Add Markers */
+    L.marker([boatLat, boatLng], {icon: boatIcon})
+        .addTo(map)
+        .bindPopup("🚤 Smart E-Boat Location");
+
+    L.marker([stationLat, stationLng], {icon: stationIcon})
+        .addTo(map)
+        .bindPopup("⚡ Charging Station");
+
+    /* Route Line */
+    var routeLine = L.polyline([
+        [boatLat, boatLng],
+        [stationLat, stationLng]
+    ], {
+        color: 'cyan',
+        weight: 4,
+        dashArray: "8,8"
+    }).addTo(map);
+
+    map.fitBounds(routeLine.getBounds());
+
+    const finalDistance = calculateDistance(boatLat, boatLng, stationLat, stationLng);
+    AnimationDistance(finalDistance);
+    const distanceElement = document.getElementById("distanceResult");
+    const timeElement = document.getElementById("timeResult");
+    const fillBar = document.getElementById("distanceFill");
+
+    let current = 0;
+    const increment = finalDistance / 100;
+    const speed = 20;
+
+    // Assume boat speed = 25 km/h
+    const boatSpeed = 25;
+    const travelTime = (finalDistance / boatSpeed) * 60; // minutes
+
+    const counter = setInterval(() => {
+        current += increment;
+
+        if (current >= finalDistance) {
+            current = finalDistance;
+            clearInterval(counter);
+        }
+
+        let percent = (current / finalDistance) * 100;
+
+        distanceElement.innerHTML =
+            "📏 Distance: " + current.toFixed(2) + " km";
+
+        fillBar.style.width = percent + "%";
+
+    }, speed);
+
+    // Show estimated time
+    timeElement.innerHTML =
+        "⏱ Estimated Travel Time: " + travelTime.toFixed(1) + " mins";
+});
+function checkSafety() {
+
+    let battery = parseFloat(document.getElementById("batteryLevel").value);
+    let distance = parseFloat(document.getElementById("distance").value);
+    let environment = document.getElementById("environment").value;
+
+    const result = document.getElementById("safetyResult");
+    const batteryFill = document.getElementById("batteryFill");
+
+    if (isNaN(battery) || isNaN(distance)) {
+        result.innerHTML = "⚠ Please enter all values!";
+        result.style.color = "orange";
+        return;
+    }
+
+    // Battery bar animation
+    batteryFill.style.width = battery + "%";
+
+    let consumptionRate = 1; // normal
+
+    if (environment === "medium") consumptionRate = 1.2;
+    if (environment === "high") consumptionRate = 1.5;
+
+    let requiredBattery = distance * 10 * consumptionRate;
+
+    if (battery > requiredBattery + 20) {
+        result.innerHTML = "✅ SAFE TO PROCEED";
+        result.style.color = "green";
+    }
+    else if (battery > requiredBattery) {
+        result.innerHTML = "⚠ RETURN TO STATION";
+        result.style.color = "orange";
+    }
+    else {
+        result.innerHTML = "🚨 EMERGENCY - LOW POWER";
+        result.style.color = "red";
+    }
+}
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Ocean & Sea News - Nauvahini</title>
+    <link rel="stylesheet" href="style1.css"> <!-- your existing css -->
+</head>
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="safety.html"><i class="fa-solid fa-shield-halved"></i> Safety Check</a>
+     <a href="news.html">News</a>
+    <a href="analytics.html"><i class="fa-solid fa-brain"></i> AI Analysis</a>
+     <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+</nav>
+
+<body>
+
+<div class="main-content">
+
+    <h1 style="color:white; margin-bottom:30px;">
+        📰 Tamil Nadu Ocean & Sea News
+    </h1>
+
+    <div class="news-container">
+        <div class="breaking-news">
+    🚨 Breaking: High tide warning issued for Chennai coast. Fishermen advised caution.
+</div>
+
+        <!-- News Card 1 -->
+        <div class="news-card">
+            <h3>🌊 Heavy Waves Alert in Chennai Coast</h3>
+            <p>
+                Fishermen advised not to venture into sea for next 2 days due to high tidal waves along Tamil Nadu coast.
+            </p>
+            <span>Updated: Today</span>
+        </div>
+
+        <!-- News Card 2 -->
+        <div class="news-card">
+            <h3>🚢 New Fishing Harbor Project Announced</h3>
+            <p>
+                Tamil Nadu government announces modernization of Nagapattinam fishing harbor to support coastal economy.
+            </p>
+            <span>Updated: Yesterday</span>
+        </div>
+
+        <!-- News Card 3 -->
+        <div class="news-card">
+            <h3>⚡ Solar Boats Trial Success in Rameswaram</h3>
+            <p>
+                Pilot testing of solar-powered boats completed successfully near Rameswaram coast.
+            </p>
+            <span>Updated: 2 Days Ago</span>
+        </div>
+        <!-- News Card 4 -->
+        <div class="news-card">
+            <h3>🌊 Coastal Erosion In Nagapattinam</h3>
+            <p>
+                Severe shoreline erosion observed due to strong wave currents along Tamil Nadu coast.
+            </p>
+            <span>Updated: Today</span>
+        </div>
+
+        <!-- News Card 5 -->
+        <div class="news-card">
+            <h3>🚢 New Fishing Harbor Project Announced</h3>
+            <p>
+                Tamil Nadu government announces modernization of Nagapattinam fishing harbor to support coastal economy.
+            </p>
+            <span>Updated: Yesterday</span>
+        </div>
+
+        <!-- News Card 6 -->
+        <div class="news-card">
+            <h3>🐟 Rare Marine Species Discovered</h3>
+            <p>
+                Scientists discover a new species of deep-sea fish near the coast of Tamil Nadu.
+            </p>
+            <span>Updated: 2 Days Ago</span>
+        </div>
+
+        <!-- News Card 7 -->
+        <div class="news-card">
+            <h3>⚡ Wave Energy Project Launched</h3>
+            <p>
+                Coastal cleanup and marine life protection drive initiated across Tamil Nadu beaches.
+            </p>
+            <span>Updated: This Week</span>
+        </div>
+
+    </div>
+    
+<div class="news-card">
+    <h3>🌊 Coastal Erosion In Nagapattinam</h3>
+    <p>Severe shoreline erosion observed due to strong wave currents along Tamil Nadu coast.</p>
+    <button class="read-more-btn">Read More</button>
+</div>
+
+<div class="news-card">
+    <h3>⚓ New Fishing Harbor Planned</h3>
+    <p>Tamil Nadu government announces new modern fishing harbor infrastructure project.</p>
+    <button class="read-more-btn">Read More</button>
+</div>
+
+<div class="news-card">
+    <h3>🌦️ Monsoon Impact on Sea Routes</h3>
+    <p>Heavy monsoon winds affecting marine transportation near Ramanathapuram.</p>
+    <button class="read-more-btn">Read More</button>
+</div>
+
+<div class="news-card">
+    <h3>🐠 Marine Life Protection Drive</h3>
+    <p>Environmental teams launch coral reef and marine biodiversity protection program.</p>
+    <button class="read-more-btn">Read More</button>
+</div>
+
+</div>
+<script>
+const cards = document.querySelectorAll('.news-card');
+
+function showCards() {
+    const triggerBottom = window.innerHeight * 0.9;
+
+    cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+
+        if (cardTop < triggerBottom) {
+            card.classList.add('show');
+        }
+    });
+}
+
+// Run once when page loads
+showCards();
+
+// Run when scrolling
+window.addEventListener('scroll', showCards);
+</script>
+
+</body>
+</html>

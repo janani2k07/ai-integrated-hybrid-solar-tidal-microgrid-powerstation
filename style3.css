@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #223b42, #0f2c3f);
+    color: white;
+}
+
+header {
+    background: #5b50ff;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    padding: 18px 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Links */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Icons */
+.navbar a i {
+    font-size: 16px;
+}
+
+/* Hover Effect */
+.navbar a:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    color: #38bdf8;
+}
+
+/* Active Page Highlight */
+.navbar a.active {
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
+}
+
+/* Smooth underline animation */
+.navbar a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0%;
+    background: #38bdf8;
+    transition: width 0.3s ease;
+    margin-top: 3px;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .navbar a {
+        font-size: 15px;
+    }
+}
+.navbar a.active {
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+.card {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.card input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.card button {
+    padding: 10px;
+    border-radius: 8px;
+
+    background: linear-gradient(to right, #0088ff, #0072ff);
+    color: white;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+}
+
+.live-box {
+    font-size: 20px;
+    text-align: center;
+    padding: 15px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', monospace;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    color: #00ffff;
+    overflow-x: hidden;
+}
+
+/* ================== TERMINAL ================== */
+.console-card {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 25px;
+    background: black;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #ffffff;
+}
+
+.console-output {
+    height: 200px;
+    overflow: hidden;
+    white-space: pre-line;
+}
+
+/* ================== RADAR ================== */
+.radar-card {
+    width: 400px;
+    height: 400px;
+    margin: 40px auto;
+    border-radius: 50%;
+    position: relative;
+    background:  black;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 30px #ffffff;
+
+}
+.radar-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.radar-line {
+    width: 50%;
+    height: 2px;
+    background: #00ffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left;
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ================== WAVE GRAPH ================== */
+.wave-card {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 25px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00ffff;
+}
+
+#waveCanvas {
+    width: 100%;
+    height: 300px;
+}
+
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #0f4c75;
+    color: white;
+}
+/* ===== Side by Side Container ===== */
+.monitor-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 60px auto;
+    flex-wrap: wrap; /* responsive */
+}
+
+/* ===== Wave Box ===== */
+.wave-box {
+    width: 450px;
+    padding: 25px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    color: white;
+    text-align: center;
+}
+
+#waveCanvas {
+    width: 100%;
+    height: 200px;
+    background: #001f3f;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* ===== Radar Box ===== */
+.radar-box {
+    width: 450px;
+    padding: 25px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    color: white;
+    text-align: center;
+}
+
+/* Radar Animation */
+.radar {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: rgba(0,255,0,0.1);
+    border: 3px solid #00ff88;
+    overflow: hidden;
+}
+
+.radar-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #00ff88 inset;
+}
+
+.radar-line {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background: #00ff88;
+    top: 50%;
+    left: 50%;
+    transform-origin: left center;
+    animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

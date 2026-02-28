@@ -1,0 +1,286 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Nauvahini – Smart Marine Energy AI</title>
+    <link rel="stylesheet" href="style3.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<header>
+    <h1>🚀 Nauvahini Smart Marine Energy Dashboard</h1>
+</header>
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="safety.html"><i class="fa-solid fa-shield-halved"></i> Safety Check</a>
+     <a href="news.html"> News</a>
+    <a href="analytics.html"><i class="fa-solid fa-brain"></i> AI Analysis</a>
+     <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+</nav>
+
+<div class="dashboard">
+
+    <!-- AI Energy Prediction -->
+    <div class="card">
+        <h2>⚡ AI Energy Prediction</h2>
+        <div class="data-box">
+            <p>Predicted Demand:</p>
+            <h1 id="energyValue">0</h1>
+            <span>kWh</span>
+        </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="card">
+        <h2>💰 Revenue Forecast</h2>
+        <div class="data-box">
+            <p>Monthly Revenue</p>
+            <h1 id="revenueValue">₹ 0</h1>
+        </div>
+    </div>
+
+    <!-- Storage Optimization -->
+    <div class="card">
+        <h2>🔋 Smart Storage Status</h2>
+        <div class="data-box">
+            <h1 id="storageStatus">Loading...</h1>
+        </div>
+    </div>
+
+    <!-- Coastal Risk -->
+    <div class="card">
+        <h2>🌊 Coastal Risk Monitor</h2>
+        <div class="data-box">
+            <h1 id="riskStatus">Loading...</h1>
+        </div>
+    </div>
+
+    <!-- Live Charging -->
+    <div class="card">
+        <h2>📡 Boats Charging Live</h2>
+        <div class="data-box">
+            <h1 id="boatsLive">0</h1>
+            <span>Boats Active</span>
+        </div>
+    </div>
+
+</div>
+<body>
+
+<h1 style="text-align:center; margin-top:30px;">
+🚢 NAUVAHINI AI MARINE COMMAND CENTER
+</h1>
+
+<!-- TERMINAL -->
+<div class="console-card">
+    <h2>🖥 AI Console</h2>
+    <div id="consoleOutput" class="console-output"></div>
+</div>
+
+<!-- RADAR -->
+<div class="radar-card">
+    <h2>📡 Radar Tracking</h2>
+    <div class="radar-line">
+       
+    </div>
+</div>
+
+<!-- WAVE GRAPH -->
+<div class="wave-card">
+    <h2>🌊 Live Ocean Energy Wave</h2>
+    <canvas id="waveCanvas"></canvas>
+</div>
+
+<script>
+function typeInfinite(element, min, max, prefix = "", suffix = "", speed = 20) {
+    let current = 0;
+    let target = Math.floor(Math.random() * (max - min) + min);
+
+    element.innerText = prefix + "0" + suffix;
+
+    let interval = setInterval(() => {
+        current += Math.ceil(target / 100);
+
+        if (current >= target) {
+            clearInterval(interval);
+
+            setTimeout(() => {
+                typeInfinite(element, min, max, prefix, suffix, speed);
+            }, 1000);
+        }
+
+        element.innerText = prefix + current.toLocaleString() + suffix;
+    }, speed);
+}
+
+function startLiveDashboard() {
+
+    // ⚡ Energy Generation
+    typeInfinite(
+        document.getElementById("energyValue"),
+        350,
+        750,
+        "",
+        " kWh"
+    );
+
+    // 💰 Revenue
+    typeInfinite(
+        document.getElementById("revenueValue"),
+        2000,
+        8000,
+        "₹ ",
+        ""
+    );
+
+    // 🚤 Boats Charging
+    typeInfinite(
+        document.getElementById("boatsLive"),
+        3,
+        25,
+        "",
+        " Boats"
+    );
+
+    // 🌊 Risk Status (changes every 4 sec)
+    setInterval(() => {
+        let riskValue = Math.random() * 100;
+        let message;
+
+        if (riskValue < 30)
+            message = "🟢 Safe Conditions";
+        else if (riskValue < 60)
+            message = "🟠 Moderate Waves";
+        else
+            message = "🔴 High Risk Alert";
+
+        document.getElementById("riskStatus").innerText = message;
+
+    }, 4000);
+
+    // 🔋 Storage Status
+    setInterval(() => {
+        let storageLevel = Math.random();
+
+        let message;
+
+        if (storageLevel > 0.7)
+            message = "🔋 Storing Excess Energy";
+        else if (storageLevel > 0.4)
+            message = "⚖ Balanced Operation";
+        else
+            message = "⚡ Increasing Power Output";
+
+        document.getElementById("storageStatus").innerText = message;
+
+    }, 5000);
+}
+
+// Start system
+startLiveDashboard();
+</script>
+<script>
+/* ================= TERMINAL TYPING ================= */
+
+const consoleOutput = document.getElementById("consoleOutput");
+
+const messages = [
+    "Initializing Marine AI System...",
+    "Scanning Offshore Charging Stations...",
+    "Radar Tracking: 4 E-Boats detected.",
+    "Wave Intensity: Normal.",
+    "Tidal Energy Output: 3.2 MW",
+    "Battery Grid Stable.",
+    "Weather Scan: Wind 18 km/h",
+    "All Systems Operational."
+];
+
+let index = 0;
+
+function typeMessage() {
+    consoleOutput.innerHTML += messages[index] + "\n";
+    index++;
+
+    if (index >= messages.length) {
+        index = 0;
+        consoleOutput.innerHTML = "";
+    }
+}
+
+setInterval(typeMessage, 1500);
+
+
+/* ================= RADAR BLIPS ================= */
+
+const radar = document.querySelector(".radar-card");
+
+function createBlip() {
+    const blip = document.createElement("div");
+    blip.style.width = "8px";
+    blip.style.height = "8px";
+    blip.style.background = "#00ffff";
+    blip.style.borderRadius = "50%";
+    blip.style.position = "absolute";
+
+    const x = Math.random() * 350;
+    const y = Math.random() * 350;
+
+    blip.style.left = x + "px";
+    blip.style.top = y + "px";
+
+    radar.appendChild(blip);
+
+    setTimeout(() => {
+        blip.remove();
+    }, 2000);
+}
+
+setInterval(createBlip, 1000);
+
+
+
+/* ================= MOVING WAVE ================= */
+
+const canvas = document.getElementById("waveCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = canvas.offsetWidth;
+canvas.height = 300;
+
+let offset = 0;
+
+function drawWave() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height / 2);
+
+    for (let x = 0; x < canvas.width; x++) {
+        let y =
+            canvas.height / 2 +
+            Math.sin((x + offset) * 0.02) * 40 +
+            Math.sin((x + offset) * 0.05) * 20;
+
+        ctx.lineTo(x, y);
+    }
+
+    ctx.strokeStyle = "#00ffff";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    offset += 2;
+
+    requestAnimationFrame(drawWave);
+}
+
+drawWave();
+
+</script>
+
+<footer>
+    © 2026 Nauvahini | AI Powered Marine Energy Platform
+</footer>
+
+</body>
+</html>

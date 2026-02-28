@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Nauvahini - Dashboard</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<header>
+    <h1>Nauvahini Dashboard</h1>
+</header>
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="safety.html"><i class="fa-solid fa-shield-halved"></i> Safety Check</a>
+     <a href="news.html">News</a>
+    <a href="analytics.html"><i class="fa-solid fa-brain"></i> AI Analysis</a>
+     <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+</nav>
+</body>
+<body class="container">
+
+ <div class="dashboard-wrapper">
+
+    <div class="power-box">
+        <h2>⚡ Power Generation Status</h2>
+
+        <div class="power-item">
+            <div class="power-header">
+                <span>☀ Solar Power</span>
+                <span id="solarPercent">70%</span>
+
+            </div>
+            <div class="progress-bar">
+                <div class="progress solar"></div>
+            </div>
+        </div>
+
+        <div class="power-item">
+            <div class="power-header">
+                <span>🌊 Tidal Power</span>
+                <span id="tidalPercent">30%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress tidal"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+
+    <!-- E-Boat Calculator -->
+    <div class="calculator-box">
+        <h2>🚤 E-Boat Charge Calculator</h2>
+
+        <div class="input-group">
+            <label>Battery Capacity (kWh):</label>
+            <input type="number" id="capacity" placeholder="Enter capacity">
+        </div>
+
+        <div class="input-group">
+            <label>Consumption Rate (kWh per hour):</label>
+            <input type="number" id="rate" placeholder="Enter rate">
+        </div>
+
+        <div class="input-group">
+            <label>Travel Time (hours):</label>
+            <input type="number" id="time" placeholder="Enter time">
+        </div>
+
+        <button class="calculate-btn" onclick="calculateCharge()">Calculate</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+
+    <!-- Billing Section -->
+    <div class="billing-box">
+        <h2>💳 Billing Section</h2>
+
+        <div class="input-group">
+            <label>Total Energy Used (kWh)</label>
+            <input type="number" id="energyUsed" placeholder="Enter energy needed">
+        </div>
+
+        <button onclick="generateBill()">Generate Bill</button>
+
+        <div id="billResult" class="bill-result"></div>
+    </div>
+
+</div>
+<!-- Weather Section -->
+<!-- Weather + Booking Row -->
+<div class="weather-booking-row">
+
+    <!-- Weather Section -->
+    <div class="weather-box">
+        <h2>🌤 Coastal Weather</h2>
+
+        <div class="input-group">
+            <label>Enter Location</label>
+            <input type="text" id="location" placeholder="Eg: Chennai">
+        </div>
+
+        <button onclick="checkWeather()">Check Weather</button>
+
+        <div id="weatherResult" class="weather-result"></div>
+    </div>
+
+
+    <!-- Pre-Booking Section -->
+    <div class="booking-box">
+    <h2>⚓ Pre-Book Charging Slot</h2>
+
+    <div class="input-group">
+        <label>Boat ID</label>
+        <input type="text" id="boatId" placeholder="Enter Boat ID">
+    </div>
+
+    <div class="input-group">
+        <label>Select Date</label>
+        <input type="date" id="bookingDate">
+    </div>
+
+    <div class="input-group">
+        <label>Select Time Slot</label>
+        <input type="time" id="bookingTime">
+    </div>
+
+    <button onclick="confirmBooking()">Confirm Booking</button>
+
+    <div id="bookingResult" class="result"></div>
+</div>
+
+</div>
+<!-- Boats Charging + Payment Row -->
+<div class="row">
+
+    <!-- Boats Charging Section -->
+    <div class="charging-box">
+        <h2>🔌 Boats Currently Charging</h2>
+
+        <div class="input-group">
+            <label>Enter Number of Boats</label>
+            <input type="number" id="boatCount" placeholder="Eg: 5">
+        </div>
+
+        <button onclick="updateCharging()">Update Status</button>
+
+        <div id="chargingResult" class="result"></div>
+    </div>
+
+
+    <!-- Payment Method Section -->
+   
+    <div class="payment-box">
+         <div id="paymentResult" class="result"></div>
+        <h2>💳 Payment Method</h2>
+
+        <div class="input-group">
+            <label>Select Payment Method</label>
+            <select id="paymentMethod">
+                <option value="">-- Choose Method --</option>
+                <option value="UPI">UPI</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="Net Banking">Net Banking</option>
+            </select>
+        </div>
+
+        <button onclick="confirmPayment()">Confirm Payment</button>
+
+        <div id="paymentResult" class="result"></div>
+    </div>
+
+</div>
+
+
+<script>
+function updateCharging() {
+    let count = document.getElementById("boatCount").value;
+    let result = document.getElementById("chargingResult");
+
+    if (count === "" || count < 0) {
+        result.innerHTML = "⚠️ Please enter a valid number.";
+        return;
+    }
+
+    result.innerHTML =
+        "✅ " + count + " boat(s) are currently charging.";
+}
+
+
+
+function confirmBooking() {
+    let boatId = document.getElementById("boatId").value;
+    let date = document.getElementById("bookingDate").value;
+    let time = document.getElementById("bookingTime").value;
+    let result = document.getElementById("bookingResult");
+
+    if (boatId === "" || date === "" || time === "") {
+        result.innerHTML = "⚠ Please fill all details!";
+        result.style.color = "orange";
+        return;
+    }
+
+    result.innerHTML =
+        "✅ Charging Slot Booked! <br>" +
+        "Boat ID: " + boatId + "<br>" +
+        "Date: " + date + "<br>" +
+        "Time: " + time;
+
+    result.style.color = "green";
+}
+</script>
+<script>
+function calculateCharge() {
+    const capacity = parseFloat(document.getElementById("capacity").value);
+    const rate = parseFloat(document.getElementById("rate").value);
+    const time = parseFloat(document.getElementById("time").value);
+
+    if (isNaN(capacity) || isNaN(rate) || isNaN(time)) {
+        document.getElementById("result").innerHTML = "Please enter all values.";
+        return;
+    }
+
+    const energyUsed = rate * time;
+    const remaining = capacity - energyUsed;
+
+    document.getElementById("result").innerHTML =
+        "Energy Used: " + energyUsed.toFixed(2) + " kWh <br>" +
+        "Remaining Battery: " + remaining.toFixed(2) + " kWh";
+}
+
+
+
+function generateBill() {
+    const energy = parseFloat(document.getElementById("energyUsed").value);
+    const ratePerKwh = 6.47;   // Your cost per unit
+
+    if (isNaN(energy)) {
+        document.getElementById("billResult").innerHTML = "Please enter energy used.";
+        return;
+    }
+
+    const totalCost = energy * ratePerKwh;
+
+    document.getElementById("billResult").innerHTML =
+        "Total Cost: ₹ " + totalCost.toFixed(2);
+}
+
+function checkWeather() {
+    const location = document.getElementById("location").value;
+    const weatherResult = document.getElementById("weatherResult");
+
+    if(location === "") {
+        weatherResult.innerHTML = "⚠️ Please enter a location";
+        return;
+    }
+
+    // Demo Weather Data
+    weatherResult.innerHTML = `
+        📍 Location: ${location} <br>
+        🌡️ Temperature: 30°C <br>
+        🌊 Sea Condition: Moderate Waves <br>
+        💨 Wind Speed: 18 km/h`;
+}
+function confirmBooking() {
+    let boatId = document.getElementById("boatId").value;
+    let date = document.getElementById("bookingDate").value;
+    let time = document.getElementById("bookingTime").value;
+
+    if (boatId === "" || date === "" || time === "") {
+        document.getElementById("bookingResult").innerHTML =
+            "⚠ Please fill all details!";
+        return;
+    }
+
+    document.getElementById("bookingResult").innerHTML =
+        "✅ Charging Slot Booked! <br>" +
+        "Boat ID: " + boatId + "<br>" +
+        "Date: " + date + "<br>" +
+        "Time: " + time;
+}
+
+function checkSafety() {
+
+    let battery = parseFloat(document.getElementById("batteryLevel").value);
+    let distance = parseFloat(document.getElementById("distance").value);
+    let environment = document.getElementById("environment").value;
+
+    const result = document.getElementById("safetyResult");
+    const batteryFill = document.getElementById("batteryFill");
+
+    if (isNaN(battery) || isNaN(distance)) {
+        result.innerHTML = "⚠ Please enter all values!";
+        result.style.color = "orange";
+        return;
+    }
+
+    // Battery bar animation
+    batteryFill.style.width = battery + "%";
+
+    let consumptionRate = 1; // normal
+
+    if (environment === "medium") consumptionRate = 1.2;
+    if (environment === "high") consumptionRate = 1.5;
+
+    let requiredBattery = distance * 10 * consumptionRate;
+
+    if (battery > requiredBattery + 20) {
+        result.innerHTML = "✅ SAFE TO PROCEED";
+        result.style.color = "green";
+    }
+    else if (battery > requiredBattery) {
+        result.innerHTML = "⚠ RETURN TO STATION";
+        result.style.color = "orange";
+    }
+    else {
+        result.innerHTML = "🚨 EMERGENCY - LOW POWER";
+        result.style.color = "red";
+    }
+}
+
+function confirmPayment() {
+
+    let method = document.getElementById("paymentMethod").value;
+    let energy = document.getElementById("energyUsed").value;
+    let result = document.getElementById("paymentResult");
+
+    if (method === "") {
+        result.innerHTML = "⚠ Please select payment method.";
+        result.style.color = "orange";
+        return;
+    }
+
+    if (energy === "" || energy <= 0) {
+        result.innerHTML = "⚠ Please enter energy used in Billing Section first.";
+        result.style.color = "orange";
+        return;
+    }
+
+    // Save for next page
+    localStorage.setItem("energyUsed", energy);
+    localStorage.setItem("paymentMethod", method);
+
+    result.innerHTML = "✅ Redirecting to secure payment...";
+    result.style.color = "lightgreen";
+
+    setTimeout(function() {
+        window.location.href = "payment-success.html";
+    }, 1500);
+}
+</script>
+</body>
+
+
+<footer>
+    <p>© 2026 Nauvahini | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
